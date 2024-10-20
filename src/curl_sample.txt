@@ -1,0 +1,3 @@
+curl -i -X PUT -H "Content-Type:application/json" -d "{\"userid\":\"1\",\"username\":\"bbb@email.com\",\"password\":\"a\",\"email\":\"pho@aaa.com\"}" http://localhost:8080/bookmarksample/users/1
+curl -i -X PUT -H "Content-Type:application/json" -d "{\"userid\":\"2\",\"username\":\"ccc@email.com\",\"password\":\"cccc\",\"email\":\"emailc@aaa.com\"}" http://localhost:8080/bookmarksample/users/2
+curl -i -X POST -H "Content-Type:application/json" -d "{\"uri\":\"bookmark2\",\"updated\":\"2024-10-17T01:23:45\",\"ldesc\":\"1\",\"sdesc\":\"2\"}" http://localhost:8080/bookmarksample/users/2/bookmarks

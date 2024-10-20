@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure id='wac' class="org.eclipse.jetty.webapp.WebAppContext">
+  <New class="com.atomikos.icatch.config.UserTransactionServiceImp" >
+      <Call name="init"/>
+  </New>
+  <New class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>TransactionManager</Arg>
+    <Arg>
+      <Call id="tsmgr" name="getTransactionManager" class="com.atomikos.icatch.jta.TransactionManagerImp"/>
+    </Arg>
+  </New>
+  <New id="tx" class="org.eclipse.jetty.plus.jndi.Transaction">
+      <Arg>
+            <New class="org.example.jersey.examples.bookmark.util.tx.MyTransaction" />
+      </Arg>
+  </New>
+  <New id="tx2" class="org.eclipse.jetty.plus.jndi.Resource">
+      <Arg>java:TransactionManager</Arg>
+      <Arg>
+            <New class="org.example.jersey.examples.bookmark.util.tx.TransactionManagerAdapter">
+                  <Arg>
+                        <Ref refid="tsmgr"/>
+                  </Arg>
+            </New>
+      </Arg>
+  </New>
+  <New class="org.eclipse.jetty.plus.jndi.Resource">
+      <Arg>java:EntityManagerFactory</Arg>
+      <Arg>
+        <Call name="createEntityManagerFactory" class="jakarta.persistence.Persistence">
+          <Arg>BookmarkPU</Arg>
+        </Call>
+      </Arg>
+  </New>
+  <!-- JTA XADataSource -->
+  <New id="myDS" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg>
+              <Ref id="Server" />
+        </Arg>
+        <Arg>jdbc/h2</Arg>
+        <Arg>
+              <New class="com.atomikos.jdbc.AtomikosDataSourceBean">
+                    <Set name="minPoolSize">2</Set>
+                    <Set name="maxPoolSize">20</Set>
+                    <Set name="xaDataSourceClassName">org.h2.jdbcx.JdbcDataSource</Set>
+                    <Set name="xaProperties">
+                          <New class="java.util.Properties">
+                                <Call name="setProperty">
+                                      <Arg>url</Arg>
+                                      <Arg>jdbc:h2:file:/tmp/bookmarksample</Arg>
+                                </Call>
+                                <Call name="setProperty">
+                                      <Arg>user</Arg>
+                                      <Arg>sa</Arg>
+                                </Call>
+                                <Call name="setProperty">
+                                      <Arg>password</Arg>
+                                      <Arg>sa</Arg>
+                                </Call>
+                          </New>
+                    </Set>
+                    <Set name="UniqueResourceName">jdbc/h2</Set>
+              </New>
+        </Arg>
+  </New>
+</Configure>
