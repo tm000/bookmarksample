@@ -10,11 +10,14 @@
 
 package org.example.jersey.examples.bookmark;
 
-import jakarta.persistence.EntityManagerFactory;
+import jakarta.inject.Singleton;
 import jakarta.ws.rs.ApplicationPath;
 
 import org.example.jersey.examples.bookmark.resource.UsersResource;
-import org.example.jersey.examples.bookmark.util.persistence.MyEntityManagerFactory;
+import org.example.jersey.examples.bookmark.util.persistence.PersistenceUnit;
+import org.example.jersey.examples.bookmark.util.persistence.PersistenceUnitResolver;
+import org.glassfish.hk2.api.InjectionResolver;
+import org.glassfish.hk2.api.TypeLiteral;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.jettison.JettisonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -31,7 +34,9 @@ public class MyApplication extends ResourceConfig {
         register(new AbstractBinder() {
             @Override
             protected void configure() {
-                bindFactory(MyEntityManagerFactory.class).to(EntityManagerFactory.class);
+                bind(PersistenceUnitResolver.class)
+                    .to(new TypeLiteral<InjectionResolver<PersistenceUnit>>(){})
+                    .in(Singleton.class);
             }
         });
     }

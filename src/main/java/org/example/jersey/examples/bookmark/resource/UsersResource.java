@@ -20,11 +20,11 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriBuilder;
 import jakarta.ws.rs.core.UriInfo;
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManagerFactory;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.example.jersey.examples.bookmark.entity.UserEntity;
+import org.example.jersey.examples.bookmark.util.persistence.PersistenceUnit;
 
 /**
  * @author Jakub Podlesak
@@ -35,8 +35,7 @@ public class UsersResource {
     @Context
     UriInfo uriInfo;
 
-    // @PersistenceUnit(unitName = "BookmarkPU")
-    @Inject
+    @PersistenceUnit(unitName = "BookmarkPU")
     EntityManagerFactory emf;
 
     /**
