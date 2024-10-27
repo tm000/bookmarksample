@@ -51,7 +51,7 @@
             <basic name="sdesc">
                 <column name="SDESC"/>
             </basic>
-            <many-to-one name="userEntity" fetch="LAZY">
+            <many-to-one name="userEntity">
                 <join-column name="USERID" referenced-column-name="USERID" insertable="false" updatable="false"/>
             </many-to-one>
         </attributes>
@@ -84,11 +84,11 @@
             <basic name="email">
                 <column name="EMAIL"/>
             </basic>
-            <!-- <one-to-many mapped-by="userEntity" target-entity="org.example.jersey.examples.bookmark.entity.BookmarkEntity">
+            <one-to-many name="bookmarkEntityCollection" mapped-by="userEntity" target-entity="org.example.jersey.examples.bookmark.entity.BookmarkEntity">
                 <cascade>
                     <cascade-all/>
                 </cascade>
-            </one-to-many> -->
+            </one-to-many>
         </attributes>
     </entity>
 </entity-mappings>
