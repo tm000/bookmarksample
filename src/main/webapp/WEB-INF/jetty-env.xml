@@ -64,4 +64,34 @@
               </New>
         </Arg>
   </New>
+  <!-- <New id="myDS" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg>
+              <Ref id="Server" />
+        </Arg>
+        <Arg>jdbc/oracle</Arg>
+        <Arg>
+              <New class="com.atomikos.jdbc.AtomikosDataSourceBean">
+                    <Set name="minPoolSize">2</Set>
+                    <Set name="maxPoolSize">20</Set>
+                    <Set name="xaDataSourceClassName">oracle.jdbc.xa.client.OracleXADataSource</Set>
+                    <Set name="xaProperties">
+                          <New class="java.util.Properties">
+                                <Call name="setProperty">
+                                      <Arg>URL</Arg>
+                                      <Arg>jdbc:oracle:thin:@127.0.0.1:1521/FREEPDB1</Arg>
+                                </Call>
+                                <Call name="setProperty">
+                                      <Arg>user</Arg>
+                                      <Arg>scott</Arg>
+                                </Call>
+                                <Call name="setProperty">
+                                      <Arg>password</Arg>
+                                      <Arg>tiger</Arg>
+                                </Call>
+                          </New>
+                    </Set>
+                    <Set name="UniqueResourceName">jdbc/oracle</Set>
+              </New>
+        </Arg>
+  </New> -->
 </Configure>
